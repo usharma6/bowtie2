@@ -21,13 +21,17 @@ def read_quality_converter():
     for i in range(len(read_quality)):
         for j in range(len(read_quality[i])):
             #Converting the read quality data to probabilities
-            read_quality[i][j] = q_to_p(phred33_to_q(read_quality[i][j]))
+            read_quality[i][j] = int(100 * q_to_p(phred33_to_q(read_quality[i][j])))
 
 def read_quality_box_plot():
     data = []
     for i in range(len(read_quality)):
         trace = go.Box(
-            y = read_quality[i]
+            y = read_quality[i],
+            name = str(i),
+            marker = dict(
+                color = 'rgb(0, 128, 128)'
+            )
         )
         data.append(trace)
     return data
