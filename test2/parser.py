@@ -12,12 +12,13 @@ def parse():
 
     f = open('eg1.sam')
     #Splitting everyline into its own place in the arry
-    lines = f.read().split('\n')
+    lines = f.readlines()
     #Itterating though everyline
     for i in range (3, len(lines)):
         get_match_score = True
         #Splitting the lines into whitespace
         subline = line_spliter.split(lines[i])
+
         if (subline[1] == '0'):
             forward_reads += 1
         elif (subline[1] =='16'):
