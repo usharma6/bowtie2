@@ -39,23 +39,26 @@ def read_quality_box_plot():
         data.append(trace)
     return data
 
-read_quality_converter()
-labels, values = matched_vs_unmatched_pie_chart()
-plotly.offline.plot({
-    "data" : [go.Pie(labels = labels, values = values)],
-    "layout": go.Layout(title = "Matched vs. Unmatched")
-})
-plotly.offline.plot({
-    "data" : [go.Histogram(x = match_scores, name = "Match Score", xbins=dict(
-        start=-12,
-        end=0))],
-    "layout": go.Layout(title = "Match Scores")
-})
 
-data = read_quality_box_plot()
+def make_pie_chart():
+    labels, values = matched_vs_unmatched_pie_chart()
+    plotly.offline.plot({
+        "data" : [go.Pie(labels = labels, values = values)],
+        "layout": go.Layout(title = "Matched vs. Unmatched")
+    })
+def make_histogram():
+    plotly.offline.plot({
+        "data" : [go.Histogram(x = match_scores, name = "Match Score", xbins=dict(
+            start=-12,
+            end=0))],
+        "layout": go.Layout(title = "Match Scores")
+    })
+def make_box_plot():
+    read_quality_converter()
+    data = read_quality_box_plot()
 
-layout = go.Layout(
-    title = "Read Quality Scores by Location (Percent Change of Accuracy)"
-)
-fig = go.Figure(data=data, layout=layout)
-plotly.offline.plot(fig)
+    layout = go.Layout(
+        title = "Read Quality Scores by Location (Percent Change of Accuracy)"
+    )
+    fig = go.Figure(data=data, layout=layout)
+    plotly.offline.plot(fig)
