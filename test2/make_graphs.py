@@ -21,14 +21,18 @@ def read_quality_converter():
     for i in range(len(read_quality)):
         for j in range(len(read_quality[i])):
             #Converting the read quality data to probabilities
-            read_quality[i][j] = int(100 * q_to_p(phred33_to_q(read_quality[i][j])))
+            read_quality[i][j] = 100 - int(100 * q_to_p(phred33_to_q(read_quality[i][j])))
 
 def read_quality_box_plot():
     data = []
-    for i in range(len(read_quality)):
+    for i in range(10):
+        temp = []
+        for j in range(len(read_quality)//10):
+            temp += read_quality[(i * 10) + j]
+        print(len(temp))
         trace = go.Box(
-            y = read_quality[i],
-            name = str(i),
+            y = temp,
+            name = str((len(read_quality)//10) * i) + ' - ' + str((len(read_quality)//10) * (i + 1) - 1),
             marker = dict(
                 color = 'rgb(0, 128, 128)'
             )
@@ -52,7 +56,7 @@ plotly.offline.plot({
 data = read_quality_box_plot()
 
 layout = go.Layout(
-    title = "Read Quality Scores by Location"
+    title = "Read Quality Scores by Location (Percent Change of Accuracy)"
 )
 fig = go.Figure(data=data, layout=layout)
 plotly.offline.plot(fig)
