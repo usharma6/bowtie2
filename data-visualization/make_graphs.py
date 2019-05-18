@@ -29,7 +29,6 @@ def read_quality_box_plot():
         temp = []
         for j in range(len(read_quality)//10):
             temp += read_quality[(i * 10) + j]
-        print(len(temp))
         trace = go.Box(
             y = temp,
             name = str((len(read_quality)//10) * i) + ' - ' + str((len(read_quality)//10) * (i + 1) - 1),

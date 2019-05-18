@@ -31,6 +31,7 @@ def parse():
             while(len(read_quality) < len(subline[10])):
                 read_quality.append([])
             read_quality[j].append(subline[10][j])
+
         if (get_match_score):
             match_scores.append(int(colon_spliter.split(subline[11])[2]))
     return (forward_reads, reverse_reads, unmatched_reads, read_quality, match_scores)
