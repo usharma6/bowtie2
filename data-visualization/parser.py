@@ -3,18 +3,18 @@ readnumber = re.compile('[r]+\d+')
 line_spliter = re.compile('\t+')
 colon_spliter = re.compile(':')
 
-def parse():
+def parse(filename, readSize):
     forward_reads = 0
     reverse_reads = 0
     unmatched_reads = 0
     read_quality = [[]]
     match_scores = []
 
-    f = open('eg1.sam')
+    f = open(filename)
     #Splitting everyline into its own place in the arry
     lines = f.readlines()
     #Itterating though everyline
-    for i in range (3, len(lines)):
+    for i in range (3, int(readSize)):
         get_match_score = True
         #Splitting the lines into whitespace
         subline = line_spliter.split(lines[i])
