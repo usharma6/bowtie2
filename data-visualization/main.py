@@ -11,13 +11,12 @@ filename = 'eg' + readNumber + '.sam'
 forward_reads, reverse_reads, unmatched_reads, read_quality, match_scores = parse(filename, readSize)
 labels, values = matched_vs_unmatched_pie_chart(forward_reads, reverse_reads, unmatched_reads)
 read_quality_converter(read_quality)
-data = read_quality_box_plot(read_quality)
+data = make_data_for_box_plot(read_quality)
 
 plotly.offline.plot({
     "data" : [go.Pie(labels = labels, values = values)],
     "layout": go.Layout(title = "Matched vs. Unmatched")
 })
-
 plotly.offline.plot({
     "data" : [go.Histogram(x = match_scores, name = "Match Score", xbins=dict(
         start=-12,

@@ -22,7 +22,7 @@ def read_quality_converter(read_quality):
             #Converting the read quality data to probabilities
             read_quality[i][j] = 100 - int(100 * q_to_p(phred33_to_q(read_quality[i][j])))
 
-def read_quality_box_plot(read_quality):
+def make_data_for_box_plot(read_quality):
     data = []
     for i in range(10):
         temp = []
@@ -54,8 +54,7 @@ def make_histogram():
     })
 def make_box_plot():
     read_quality_converter()
-    data = read_quality_box_plot()
-
+    data = make_data_for_box_plot()
     layout = go.Layout(
         title = "Read Quality Scores by Location (Percent Change of Accuracy)"
     )
