@@ -20,8 +20,22 @@ def read_quality_converter(read_quality):
     for i in range(len(read_quality)):
         for j in range(len(read_quality[i])):
             #Converting the read quality data to probabilities
-            read_quality[i][j] = 100 - int(100 * q_to_p(phred33_to_q(read_quality[i][j])))
+            read_quality[i][j] = phred33_to_q(read_quality[i][j])
 
+def make_data_for_box_plot(read_quality):
+    data = []
+    for i in range(len(read_quality)):
+        trace = go.Box(
+            y = read_quality[i],
+            name = str(i),
+            marker = dict(
+                color = 'rgb(0, 128, 128)'
+            )
+        )
+        data.append(trace)
+    return data
+"""
+Old function for box plots that groups it into ranges
 def make_data_for_box_plot(read_quality):
     data = []
     for i in range(10):
@@ -37,7 +51,7 @@ def make_data_for_box_plot(read_quality):
         )
         data.append(trace)
     return data
-
+"""
 
 def make_pie_chart():
     labels, values = matched_vs_unmatched_pie_chart()

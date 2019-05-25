@@ -25,7 +25,7 @@ plotly.offline.plot({
 })
 
 layout = go.Layout(
-    title = "Read Quality Scores by Location (Percent Change of Accuracy)"
+    title = "Read Quality Scores by Location"
 )
 fig = go.Figure(data=data, layout=layout)
 plotly.offline.plot(fig)
