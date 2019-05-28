@@ -16,7 +16,7 @@ def parse(filename, readSize):
     #Splitting everyline into its own place in the arry
     lines = f.readlines()
     #Itterating though everyline
-    for i in range (3, min(int(readSize), len(lines))):
+    for i in range(3, min(int(readSize), len(lines))):
         get_match_score = True
         #Splitting the lines into whitespace
         subline = line_spliter.split(lines[i])
