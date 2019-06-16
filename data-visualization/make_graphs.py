@@ -20,9 +20,23 @@ def read_quality_converter(read_quality):
     for i in range(len(read_quality)):
         for j in range(len(read_quality[i])):
             #Converting the read quality data to probabilities
-            read_quality[i][j] = 100 - int(100 * q_to_p(phred33_to_q(read_quality[i][j])))
+            read_quality[i][j] = phred33_to_q(read_quality[i][j])
 
-def read_quality_box_plot(read_quality):
+def make_data_for_box_plot(read_quality):
+    data = []
+    for i in range(len(read_quality)):
+        trace = go.Box(
+            y = read_quality[i],
+            name = str(i),
+            marker = dict(
+                color = 'rgb(0, 128, 128)'
+            )
+        )
+        data.append(trace)
+    return data
+"""
+Old function for box plots that groups it into ranges
+def make_data_for_box_plot(read_quality):
     data = []
     for i in range(10):
         temp = []
@@ -37,3 +51,26 @@ def read_quality_box_plot(read_quality):
         )
         data.append(trace)
     return data
+"""
+
+def make_pie_chart():
+    labels, values = matched_vs_unmatched_pie_chart()
+    plotly.offline.plot({
+        "data" : [go.Pie(labels = labels, values = values)],
+        "layout": go.Layout(title = "Matched vs. Unmatched")
+    })
+def make_histogram():
+    plotly.offline.plot({
+        "data" : [go.Histogram(x = match_scores, name = "Match Score", xbins=dict(
+            start=-12,
+            end=0))],
+        "layout": go.Layout(title = "Match Scores")
+    })
+def make_box_plot():
+    read_quality_converter()
+    data = make_data_for_box_plot()
+    layout = go.Layout(
+        title = "Read Quality Scores by Location (Percent Change of Accuracy)"
+    )
+    fig = go.Figure(data=data, layout=layout)
+    plotly.offline.plot(fig)

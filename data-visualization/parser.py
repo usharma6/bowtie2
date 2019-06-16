@@ -10,11 +10,13 @@ def parse(filename, readSize):
     read_quality = [[]]
     match_scores = []
 
+    #TODO throw an error/ warning if the readSize is greater than the number
+    #of lines in the file.
     f = open(filename)
     #Splitting everyline into its own place in the arry
     lines = f.readlines()
     #Itterating though everyline
-    for i in range (3, int(readSize)):
+    for i in range(3, min(int(readSize), len(lines))):
         get_match_score = True
         #Splitting the lines into whitespace
         subline = line_spliter.split(lines[i])
@@ -31,6 +33,7 @@ def parse(filename, readSize):
             while(len(read_quality) < len(subline[10])):
                 read_quality.append([])
             read_quality[j].append(subline[10][j])
+
         if (get_match_score):
             match_scores.append(int(colon_spliter.split(subline[11])[2]))
     return (forward_reads, reverse_reads, unmatched_reads, read_quality, match_scores)
